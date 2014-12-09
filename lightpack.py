@@ -1,5 +1,4 @@
 import socket, time, imaplib, re, sys
-from PyQt4.QtGui import QColor
 
 class lightpack:
 

@@ -45,7 +45,6 @@ class Animate:
 
     def run(self):
         if self.lpack.lock() :
-            leds = self.lpack.getCountLeds()
             self.lpack.turnOn()
             self.onAnimationChange()
             while True:
