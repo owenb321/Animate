@@ -86,19 +86,25 @@ class lightpack:
         status = status.split(':')[1]
         return status
         
+    def sendApikey(self):
+        if self.apikey is not None:
+            cmd = 'apikey:' + str(self.apikey) + '\n'
+        else:
+            cmd = 'apikey:\n'
+        self.connection.send(cmd)
+        return self.__readResult()
+        
     def connect (self):
         try:     #Try to connect to the server API
             self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.connection.connect((self.host, self.port))            
             self.__readResult()
-            if self.apikey is not None:    
-                cmd = 'apikey:' + self.apikey + '\n'            
-                self.connection.send(cmd)
-                self.__readResult()
+            self.sendApikey()
             self.getLeds()
             return 0
         except:
             print 'Lightpack API server is missing'
+            print sys.exc_info()[0]
             return -1
         
     def setColor(self, n, r, g, b):     # Set color to the define LED        
